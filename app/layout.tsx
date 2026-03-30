@@ -3,6 +3,8 @@ import { BottomNav } from "@/components/BottomNav";
 import { AppProviders } from "@/components/providers/AppProviders";
 import "./globals.css";
 
+const APP_URL = "https://tag-registry.vercel.app";
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -14,9 +16,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           name="talentapp:project_verification"
           content="a92fda0cd504ab02e622854338c39b2d210ff1ca609e7d128527d935db352e9a4ecaea87b6ea827c8a707f01f63c13e529cb3d25fe5f5c1eae8ea803226655b2"
         />
+        <link rel="canonical" href={APP_URL} />
         <meta property="og:title" content="tag-registry" />
         <meta property="og:description" content="Public tag identity for builders, artists, traders, and more." />
+        <meta property="og:url" content={APP_URL} />
+        <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="tag-registry" />
+        <meta name="twitter:description" content="Set a short public identity tag on Base." />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
