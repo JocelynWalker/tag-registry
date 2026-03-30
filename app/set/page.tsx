@@ -89,6 +89,9 @@ export default function SetPage() {
             <span className="mono muted" style={{ fontSize: 12, wordBreak: "break-all" }}>
               {latestHash || "Your next successful write will appear here."}
             </span>
+            <p className="muted" style={{ margin: 0, fontSize: 12 }}>
+              Verify this hash in the 8021 checker as a Transaction. Use UserOperation only if you have an actual AA userOp hash.
+            </p>
           </div>
         </section>
       </section>
