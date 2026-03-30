@@ -5,6 +5,9 @@ import { createConfig, http } from "wagmi";
 import { base } from "viem/chains";
 
 export const CONTRACT_ADDRESS = "0xef6e0849d45ce368d4635747ba583fed60199a7d" as const;
+export const BUILDER_CODE = "bc_mew6jx8l" as const;
+export const BUILDER_CODE_DATA_SUFFIX =
+  "0x62635f6d6577366a78386c0b0080218021802180218021802180218021" as const;
 
 export const tagRegistryAbi = [
   {
@@ -32,14 +35,11 @@ export const tagRegistryAbi = [
   },
 ] as const;
 
-// TODO: Replace this placeholder with the official Builder Code suffix once provided.
-// Example target shape: `?builderCode=YOUR_BUILDER_CODE_SUFFIX`
-export const BUILDER_CODE_DATA_SUFFIX = "TODO_REPLACE_WITH_BUILDER_CODE_SUFFIX";
-
 export const wagmiConfig = createConfig({
   chains: [base],
   connectors: [injected()],
   transports: {
     [8453]: http(),
   },
+  dataSuffix: BUILDER_CODE_DATA_SUFFIX,
 });
