@@ -1,13 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { MosaicHeader } from "@/components/MosaicHeader";
 import { TagInputPanel } from "@/components/TagInputPanel";
 import { SetTagButton } from "@/components/SetTagButton";
 import { TagStatusChip } from "@/components/TagStatusChip";
-import { submitTag } from "@/lib/tag-registry";
+import { tagRegistryAbi, CONTRACT_ADDRESS } from "@/lib/wagmi";
 import { trackTransaction } from "@/utils/track";
 
 export default function SetPage() {
@@ -16,20 +16,34 @@ export default function SetPage() {
   const [tag, setTag] = useState("");
   const [state, setState] = useState<"ready" | "set">("ready");
   const [latestHash, setLatestHash] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { data: hash, isPending, writeContractAsync } = useWriteContract();
+  const { isSuccess } = useWaitForTransactionReceipt({ hash });
 
-  async function handleSetTag() {
-    if (!tag.trim() || !isConnected || !address) return;
-    try {
-      setLoading(true);
-      const hash = await submitTag(tag.trim());
+  useEffect(() => {
+    async function handleSuccess() {
+      if (!isSuccess || !hash || !address) return;
       setLatestHash(hash);
       setState("set");
       await trackTransaction("app-021", "tag-registry", address, hash);
       router.refresh();
-    } finally {
-      setLoading(false);
     }
+
+    handleSuccess();
+  }, [address, hash, isSuccess, router]);
+
+  async function handleSetTag() {
+    if (!tag.trim() || !isConnected || !address) return;
+
+    setState("ready");
+    const nextHash = await writeContractAsync({
+      abi: tagRegistryAbi,
+      address: CONTRACT_ADDRESS,
+      functionName: "setTag",
+      args: [tag.trim()],
+      account: address,
+    });
+
+    setLatestHash(nextHash);
   }
 
   return (
@@ -54,7 +68,7 @@ export default function SetPage() {
           </div>
 
           <div style={{ display: "grid", gap: 12 }}>
-            <SetTagButton disabled={!tag.trim() || !isConnected} loading={loading} onClick={handleSetTag} />
+            <SetTagButton disabled={!tag.trim() || !isConnected} loading={isPending} onClick={handleSetTag} />
             <p className="muted" style={{ margin: 0, fontSize: 13 }}>
               {isConnected ? "Connected on Base." : "Connect a wallet to continue."}
             </p>

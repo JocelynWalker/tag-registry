@@ -1,6 +1,6 @@
 "use client";
 
-import { readContract, waitForTransactionReceipt, writeContract } from "wagmi/actions";
+import { readContract } from "wagmi/actions";
 import { mockTags } from "@/data/mockTags";
 import type { TagRecord } from "@/types/tag";
 import { CONTRACT_ADDRESS, tagRegistryAbi, wagmiConfig } from "@/lib/wagmi";
@@ -18,18 +18,6 @@ export async function getTagByOwner(owner?: `0x${string}`): Promise<string> {
   } catch {
     return "";
   }
-}
-
-export async function submitTag(tag: string) {
-  const hash = await writeContract(wagmiConfig, {
-    abi: tagRegistryAbi,
-    address: CONTRACT_ADDRESS,
-    functionName: "setTag",
-    args: [tag],
-  });
-
-  await waitForTransactionReceipt(wagmiConfig, { hash });
-  return hash;
 }
 
 export function getMockTagById(id: string): TagRecord | undefined {
