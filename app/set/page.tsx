@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { encodeFunctionData } from "viem";
 import { useRouter } from "next/navigation";
-import { useAccount, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { useAccount, useSendCalls, useWaitForCallsStatus } from "wagmi";
 import { MosaicHeader } from "@/components/MosaicHeader";
 import { TagInputPanel } from "@/components/TagInputPanel";
 import { SetTagButton } from "@/components/SetTagButton";
 import { TagStatusChip } from "@/components/TagStatusChip";
-import { tagRegistryAbi, CONTRACT_ADDRESS } from "@/lib/wagmi";
+import { BUILDER_CODE_DATA_SUFFIX, tagRegistryAbi, CONTRACT_ADDRESS } from "@/lib/wagmi";
 import { trackTransaction } from "@/utils/track";
 
 export default function SetPage() {
@@ -16,34 +17,56 @@ export default function SetPage() {
   const [tag, setTag] = useState("");
   const [state, setState] = useState<"ready" | "set">("ready");
   const [latestHash, setLatestHash] = useState("");
-  const { data: hash, isPending, writeContractAsync } = useWriteContract();
-  const { isSuccess } = useWaitForTransactionReceipt({ hash });
+  const [callsId, setCallsId] = useState<string | undefined>(undefined);
+  const { isPending, sendCallsAsync } = useSendCalls();
+  const { data: callsStatus, isSuccess } = useWaitForCallsStatus({
+    id: callsId,
+    query: {
+      enabled: Boolean(callsId),
+      refetchInterval: 1500,
+    },
+  });
 
   useEffect(() => {
     async function handleSuccess() {
-      if (!isSuccess || !hash || !address) return;
-      setLatestHash(hash);
+      if (!isSuccess || !callsStatus || !address) return;
+
+      const txHash = callsStatus.receipts?.[0]?.transactionHash ?? "";
+      if (!txHash) return;
+
+      setLatestHash(txHash);
       setState("set");
-      await trackTransaction("app-021", "tag-registry", address, hash);
+      await trackTransaction("app-021", "tag-registry", address, txHash);
       router.refresh();
     }
 
     handleSuccess();
-  }, [address, hash, isSuccess, router]);
+  }, [address, callsStatus, isSuccess, router]);
 
   async function handleSetTag() {
     if (!tag.trim() || !isConnected || !address) return;
 
     setState("ready");
-    const nextHash = await writeContractAsync({
-      abi: tagRegistryAbi,
-      address: CONTRACT_ADDRESS,
-      functionName: "setTag",
-      args: [tag.trim()],
-      account: address,
+    const response = await sendCallsAsync({
+      calls: [
+        {
+          to: CONTRACT_ADDRESS,
+          data: encodeFunctionData({
+            abi: tagRegistryAbi,
+            functionName: "setTag",
+            args: [tag.trim()],
+          }),
+        },
+      ],
+      capabilities: {
+        dataSuffix: {
+          value: BUILDER_CODE_DATA_SUFFIX,
+          optional: true,
+        },
+      },
     });
 
-    setLatestHash(nextHash);
+    setCallsId(response.id);
   }
 
   return (
