@@ -3,5 +3,5 @@ declare module "viem" {
 }
 
 declare module "viem/chains" {
-  export const base: unknown;
+  export const base: any;
 }

@@ -1,9 +1,12 @@
 "use client";
 
-import { injected } from "@wagmi/core";
-import { createConfig, http } from "wagmi";
+import { createStorage, cookieStorage, createConfig, http } from "wagmi";
 import { base } from "viem/chains";
+import { baseAccount, injected } from "wagmi/connectors";
 
+export const APP_NAME = "tag-registry" as const;
+export const APP_URL = "https://tag-registry.vercel.app" as const;
+export const APP_OG_IMAGE = `${APP_URL}/og.png` as const;
 export const CONTRACT_ADDRESS = "0xef6e0849d45ce368d4635747ba583fed60199a7d" as const;
 export const BUILDER_CODE = "bc_mew6jx8l" as const;
 export const BUILDER_CODE_DATA_SUFFIX =
@@ -37,9 +40,22 @@ export const tagRegistryAbi = [
 
 export const wagmiConfig = createConfig({
   chains: [base],
-  connectors: [injected()],
+  connectors: [
+    injected(),
+    baseAccount({
+      appName: APP_NAME,
+    }),
+  ],
+  storage: createStorage({ storage: cookieStorage }),
+  ssr: true,
   transports: {
-    [8453]: http(),
+    [base.id]: http(),
   },
   dataSuffix: BUILDER_CODE_DATA_SUFFIX,
 });
+
+declare module "wagmi" {
+  interface Register {
+    config: typeof wagmiConfig;
+  }
+}

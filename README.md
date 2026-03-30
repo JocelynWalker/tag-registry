@@ -8,6 +8,7 @@ Public tag identity mini app for Base.
 - TypeScript
 - Wagmi
 - Viem
+- Base Account connector
 
 ## Routes
 
@@ -26,9 +27,15 @@ Public tag identity mini app for Base.
 
 - Builder Code: `bc_mew6jx8l`
 - ERC-8021 data suffix: `0x62635f6d6577366a78386c0b0080218021802180218021802180218021`
-- Successful tag submissions also call `utils/track.js` for dashboard attribution.
+- Successful tag submissions call `utils/track.js` for dashboard attribution.
+- Wagmi config applies the builder code suffix globally for writes.
 
-## Notes
+## Discovery and previews
 
-- `app/layout.tsx` includes the Base app id and Talent verification meta tags.
-- `lib/wagmi.ts` applies the builder code suffix at the Wagmi client level.
+- Share/embed tags are included in `app/layout.tsx`.
+- Public assets live in `public/`.
+- Manifest scaffold lives at `public/.well-known/farcaster.json`.
+
+## Remaining manual step
+
+Replace the placeholder `accountAssociation` values in `public/.well-known/farcaster.json` with your signed values from Base.dev or the manifest signing flow. That is the remaining requirement for a fully valid signed manifest on clients that still read it before April 9, 2026.

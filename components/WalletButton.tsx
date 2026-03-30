@@ -10,7 +10,7 @@ export function WalletButton() {
   const { address, isConnected } = useAccount();
   const { connectors, connect, isPending } = useConnect();
   const { disconnect } = useDisconnect();
-  const primaryConnector = connectors[0];
+  const preferredConnector = connectors.find((connector) => connector.id === "baseAccount") ?? connectors[0];
 
   if (isConnected && address) {
     return (
@@ -24,10 +24,10 @@ export function WalletButton() {
     <button
       className="button-ghost"
       type="button"
-      disabled={!primaryConnector || isPending}
-      onClick={() => primaryConnector && connect({ connector: primaryConnector })}
+      disabled={!preferredConnector || isPending}
+      onClick={() => preferredConnector && connect({ connector: preferredConnector })}
     >
-      {isPending ? "Connecting" : "Connect wallet"}
+      {isPending ? "Connecting wallet" : "Connect wallet"}
     </button>
   );
 }
