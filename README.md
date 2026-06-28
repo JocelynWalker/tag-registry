@@ -131,3 +131,11 @@ To set a tag, visit:
 To view a specific tag, use:
 
 ```text
+/tags/[id]
+```
+
+To view your own tag, use:
+
+```text
+/my
+```
