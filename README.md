@@ -103,3 +103,13 @@ npm install
 ```
 
 Run the development server:
+
+```bash
+npm run dev
+```
+
+Open the local app in your browser:
+
+```text
+http://localhost:3000
+```
