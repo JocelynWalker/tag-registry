@@ -24,3 +24,12 @@ Users can:
 The app is designed as a compact Base mini app with a small route surface and a focused contract interaction.
 
 ## Features
+
+- Public tag identity pages.
+- Dedicated route for setting a tag.
+- Individual tag detail pages.
+- Personal tag view.
+- Explore page for browsing.
+- Share and embed metadata configured in the app layout.
+- Public assets served from the `public/` directory.
+- Manifest scaffold included for Farcaster-compatible discovery flows.
