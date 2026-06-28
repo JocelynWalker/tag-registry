@@ -165,3 +165,13 @@ public/.well-known/farcaster.json
 ```
 
 Replace them with signed values from Base.dev or the relevant manifest signing flow.
+
+This is the remaining requirement for a fully valid signed manifest on clients that still read the manifest before April 9, 2026.
+
+## Notes
+
+- Keep the contract address and function signature aligned with the deployed contract.
+- Keep attribution settings intact when modifying write configuration.
+- Update preview assets and metadata when changing the public presentation of tags.
+- Verify all public routes after changing app layout or routing behavior.
+- Confirm the manifest values before production deployment.
