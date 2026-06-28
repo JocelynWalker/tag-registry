@@ -147,3 +147,13 @@ To explore public tags, use:
 ```
 
 ## Project Structure Notes
+
+The app uses the Next.js App Router, so page routes live under the `app/` directory.
+
+Preview metadata is handled through `app/layout.tsx`.
+
+Static files, preview images, and public discovery assets should be placed in the `public/` directory.
+
+The manifest scaffold is already present at `public/.well-known/farcaster.json`.
+
+## Manual Configuration Step
