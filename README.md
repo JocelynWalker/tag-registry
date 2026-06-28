@@ -42,3 +42,12 @@ The app is designed as a compact Base mini app with a small route surface and a 
 - Wagmi
 - Viem
 - Base connector
+
+## Routes
+
+| Route | Description |
+| --- | --- |
+| `/` | Identity Hub |
+| `/set` | Set Tag |
+| `/tags/[id]` | Tag Detail |
+| `/my` | My Tag |
