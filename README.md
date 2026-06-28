@@ -78,3 +78,11 @@ The Wagmi configuration applies the builder code suffix globally for write opera
 Share and embed metadata are configured in:
 
 - `app/layout.tsx`
+
+Public assets are stored in:
+
+- `public/`
+
+The Farcaster manifest scaffold is located at:
+
+- `public/.well-known/farcaster.json`
