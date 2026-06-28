@@ -59,3 +59,12 @@ The app writes to the following contract:
 
 - Address: `0xef6e0849d45ce368d4635747ba583fed60199a7d`
 - Function: `setTag(string _tag)`
+
+## Attribution
+
+Builder attribution is included in the project configuration.
+
+- Builder Code: `bc_mew6jx8l`
+- ERC-8021 data suffix: `0x62635f6d6577366a78386c0b0080218021802180218021802180218021`
+
+Successful tag submissions call:
