@@ -95,3 +95,11 @@ Clone the repository:
 git clone https://github.com/JocelynWalker/tag-registry.git
 cd tag-registry
 ```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
