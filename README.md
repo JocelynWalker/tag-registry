@@ -121,3 +121,13 @@ Start from the home route:
 ```text
 /
 ```
+
+To set a tag, visit:
+
+```text
+/set
+```
+
+To view a specific tag, use:
+
+```text
