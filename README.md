@@ -33,3 +33,12 @@ The app is designed as a compact Base mini app with a small route surface and a 
 - Share and embed metadata configured in the app layout.
 - Public assets served from the `public/` directory.
 - Manifest scaffold included for Farcaster-compatible discovery flows.
+- Builder attribution configured for successful tag submissions.
+
+## Tech Stack
+
+- Next.js App Router
+- TypeScript
+- Wagmi
+- Viem
+- Base connector
