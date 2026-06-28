@@ -157,3 +157,11 @@ Static files, preview images, and public discovery assets should be placed in th
 The manifest scaffold is already present at `public/.well-known/farcaster.json`.
 
 ## Manual Configuration Step
+
+Before release, update the placeholder `accountAssociation` values in:
+
+```text
+public/.well-known/farcaster.json
+```
+
+Replace them with signed values from Base.dev or the relevant manifest signing flow.
