@@ -16,3 +16,11 @@ Users can:
 
 - Visit the main identity hub.
 - Set a public tag.
+- View a tag detail page.
+- View their own tag.
+- Explore other tags.
+- Share tag pages with preview metadata.
+
+The app is designed as a compact Base mini app with a small route surface and a focused contract interaction.
+
+## Features
