@@ -7,3 +7,12 @@ A public tag identity mini app for Base.
 ## Repository
 
 https://github.com/JocelynWalker/tag-registry.git
+
+## Overview
+
+This project is a lightweight identity hub centered on public tags.
+
+Users can:
+
+- Visit the main identity hub.
+- Set a public tag.
