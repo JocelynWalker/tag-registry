@@ -139,3 +139,11 @@ To view your own tag, use:
 ```text
 /my
 ```
+
+To explore public tags, use:
+
+```text
+/explore
+```
+
+## Project Structure Notes
