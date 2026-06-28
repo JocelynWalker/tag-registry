@@ -86,3 +86,12 @@ Public assets are stored in:
 The Farcaster manifest scaffold is located at:
 
 - `public/.well-known/farcaster.json`
+
+## Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/JocelynWalker/tag-registry.git
+cd tag-registry
+```
