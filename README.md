@@ -51,3 +51,11 @@ The app is designed as a compact Base mini app with a small route surface and a 
 | `/set` | Set Tag |
 | `/tags/[id]` | Tag Detail |
 | `/my` | My Tag |
+| `/explore` | Explore |
+
+## Contract
+
+The app writes to the following contract:
+
+- Address: `0xef6e0849d45ce368d4635747ba583fed60199a7d`
+- Function: `setTag(string _tag)`
