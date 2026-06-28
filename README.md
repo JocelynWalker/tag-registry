@@ -113,3 +113,11 @@ Open the local app in your browser:
 ```text
 http://localhost:3000
 ```
+
+## Usage
+
+Start from the home route:
+
+```text
+/
+```
